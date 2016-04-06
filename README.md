@@ -4,7 +4,7 @@
 
 This Laravel 5 package provides a very easy to use solution to log the activities of the users of your Laravel 5 app. All the activities will be logged in a db-table. Optionally the activities can also be logged against the default Laravel Log Handler.
 
-This package was originally created by Spatie. Spatie is a web design agency in Antwerp, Belgium. You'll find an overview of all their open source projects [on our website](https://spatie.be/opensource).
+This package was originally created by Spatie. Spatie is a web design agency in Antwerp, Belgium. You'll find an overview of all their open source projects [on their website](https://spatie.be/opensource).
 
 Later we in CodeMyViews decided to modify Spatie version to better fit our needs. You can read about us on [our site](https://CodeMyViews.com/).
 
