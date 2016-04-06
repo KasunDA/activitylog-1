@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Activitylog\Handlers;
+namespace CodeMyViews\Activitylog\Handlers;
 
 interface BeforeHandlerInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth as Auth;
-use Spatie\Activitylog\ActivitylogSupervisor;
+use CodeMyViews\Activitylog\ActivitylogSupervisor;
 
 class ActivityLogSupervistorTest extends PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class ActivityLogSupervistorTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->logHandler = Mockery::mock('\Spatie\Activitylog\Handlers\EloquentHandler');
+        $this->logHandler = Mockery::mock('\CodeMyViews\Activitylog\Handlers\EloquentHandler');
         $this->config = Mockery::mock('\Illuminate\Config\Repository');
         $this->auth = Mockery::mock('Illuminate\Contracts\Auth\Guard');
 

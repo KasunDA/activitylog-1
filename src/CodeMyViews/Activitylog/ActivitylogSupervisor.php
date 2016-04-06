@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Activitylog;
+namespace CodeMyViews\Activitylog;
 
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Handlers\BeforeHandler;
-use Spatie\Activitylog\Handlers\DefaultLaravelHandler;
+use CodeMyViews\Activitylog\Handlers\BeforeHandler;
+use CodeMyViews\Activitylog\Handlers\DefaultLaravelHandler;
 use Request;
 use Config;
 

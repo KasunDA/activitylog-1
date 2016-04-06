@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Activitylog;
+namespace CodeMyViews\Activitylog;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -40,12 +40,12 @@ class ActivitylogServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'activity',
-            'Spatie\Activitylog\ActivitylogSupervisor'
+            'CodeMyViews\Activitylog\ActivitylogSupervisor'
         );
 
         $this->app->bind(
-            'Spatie\Activitylog\Handlers\ActivitylogHandlerInterface',
-            'Spatie\Activitylog\Handlers\EloquentHandler'
+            'CodeMyViews\Activitylog\Handlers\ActivitylogHandlerInterface',
+            'CodeMyViews\Activitylog\Handlers\EloquentHandler'
         );
     }
 

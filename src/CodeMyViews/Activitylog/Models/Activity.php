@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Activitylog\Models;
+namespace CodeMyViews\Activitylog\Models;
 
 use Eloquent;
 use Config;

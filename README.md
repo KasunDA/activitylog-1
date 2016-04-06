@@ -1,24 +1,16 @@
 # Log the activity of your users
 
-[![Latest Version](https://img.shields.io/github/release/spatie/activitylog.svg?style=flat-square)](https://github.com/spatie/activitylog/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/spatie/activitylog/master.svg?style=flat-square)](https://travis-ci.org/spatie/activitylog)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/c48809c7-cdb3-4e86-974b-ad9c6282bc3c.svg)](https://insight.sensiolabs.com/projects/c48809c7-cdb3-4e86-974b-ad9c6282bc3c)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/activitylog.svg?style=flat-square)](https://packagist.org/packages/spatie/activitylog)
 
 This Laravel 5 package provides a very easy to use solution to log the activities of the users of your Laravel 5 app. All the activities will be logged in a db-table. Optionally the activities can also be logged against the default Laravel Log Handler.
-
-Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
-
-### Note:
-
-If you're using Laravel 4, take a look at version 0.3.0 of this package.
+This package was originally created by Spatie. Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all their open source projects [on our website](https://spatie.be/opensource).
+Later we in CodeMyViews decided to modify Spatie version to better fit our needs. You can read about us on [our site](https://CodeMyViews.com/).
 
 ## Installation
 
 This package can be installed through Composer.
 ```bash
-composer require spatie/activitylog
+composer require codemyviews/activitylog
 ```
 
 
@@ -28,14 +20,14 @@ This service provider must be registered.
 
 'providers' => [
     '...',
-    'Spatie\Activitylog\ActivitylogServiceProvider',
+    'CodeMyViews\Activitylog\ActivitylogServiceProvider',
 ];
 ```
 
 
 You'll also need to publish and run the migration in order to create the db-table.
 ```
-php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="CodeMyViews\Activitylog\ActivitylogServiceProvider" --tag="migrations"
 php artisan migrate
 ```
 
@@ -46,14 +38,14 @@ Activitylog also comes with a facade, which provides an easy way to call it.
 
 'aliases' => [
 	...
-	'Activity' => 'Spatie\Activitylog\ActivitylogFacade',
+	'Activity' => 'CodeMyViews\Activitylog\ActivitylogFacade',
 ];
 ```
 
 
 Optionally you can publish the config file of this package.
 ```
-php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="config"
+php artisan vendor:publish --provider="CodeMyViews\Activitylog\ActivitylogServiceProvider" --tag="config"
 ```
 The configuration will be written to  ```config/activitylog.php```. The options provided are self explanatory.
 
@@ -64,19 +56,22 @@ The configuration will be written to  ```config/activitylog.php```. The options 
 
 Logging some activity is very simple.
 ```php
-//at the top of your file you should import the facade.
+// at the top of your file you should import the facade.
 use Activity;
 ...
 /*
-  The log-function takes two parameters:
+  The log-function takes three parameters:
   	- $text: the activity you wish to log.
-  	- $user: optional can be an user id or a user object.
-  	         if not proved the id of Auth::user() will be used
-
+  	- $user:  optional can be an user id or a user object.
+  	          if not proved the id of Auth::user() will be used
+  	- $model: optional can be an instance of Illuminate\Database\Eloquent\Model
+  	          if not provided, none will be used
+  	          if provided, activity will be referencing this model
 */
 Activity::log('Some activity that you wish to log');
+Activity::log('User has updated a post', $user, $post);
 ```
-The string you pass to function gets written in a db-table together with a timestamp, the ip address and the user agent of the user.
+The string you pass to function gets written in a db-table together with a timestamp, the ip address, the user agent of the user, and reference to the model.
 
 ### Log model events
 This package can log the events from your models. To do so your model must use the `LogsActivity`-trait and implement `LogsActivityInterface`.
@@ -122,17 +117,17 @@ public function getActivityDescriptionForEvent($eventName)
     return '';
 }
 ```
-The result of this function will be logged, unless the result is an empty string.
+The result of this function will be logged, unless the result is an empty string. Logged activities will be referencing the model, which has created them.
 
 ### Using a before handler.
 If you want to disable logging under certain conditions, 
 such as for a specific user, create a class in your application
-namespace that implements the `Spatie\Activitylog\Handlers\BeforeHandlerInterface`. 
+namespace that implements the `CodeMyViews\Activitylog\Handlers\BeforeHandlerInterface`.
 
 This  interface defines an `shouldLog()` method in which you can code any custom logic to determine
 whether logging should be ignored or not. You must return `true` the call should be logged.
  
-To en the namespaced class nameto the `beforeHandler` field in the configuration file:
+To en the namespaced class name to the `beforeHandler` field in the configuration file:
 ```php
 'beforeHandler' => '\App\Handlers\BeforeHandler',
 ```
@@ -144,7 +139,7 @@ logging a user with id of 1:
 
 namespace App\Handlers;
 
-use Spatie\Activitylog\Handlers\BeforeHandlerInterface;
+use CodeMyViews\Activitylog\Handlers\BeforeHandlerInterface;
 
 class BeforeHandler implements BeforeHandlerInterface
 {
@@ -161,14 +156,10 @@ class BeforeHandler implements BeforeHandlerInterface
 All events will be logged in the `activity_log`-table. This package provides an Eloquent model to work with the table. You can use all the normal Eloquent methods that you know and love. Here's how you can get the last 100 activities together with the associated users.
 
 ```php
-use Spatie\Activitylog\Models\Activity;
+use CodeMyViews\Activitylog\Models\Activity;
 
 $latestActivities = Activity::with('user')->latest()->limit(100)->get();
 ```
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Cleaning up the log
 
@@ -178,21 +169,15 @@ Activity::cleanLog();
 ```
 By default records older than 2 months will be deleted. The number of months can be modified in the config-file of the package.
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
 ## Security
 
-If you discover any security related issues, please email freek@spatie.be instead of using the issue tracker.
+If you discover any security related issues, please email connor@codemyviews.com instead of using the issue tracker.
 
 ## Credits
 
 - [Freek Van der Herten](https://github.com/freekmurze)
+- [Ivan Kulikov](https://github.com/ikoolik)
 - [All Contributors](../../contributors)
-
-## About Spatie
-Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## License
 

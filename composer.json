@@ -1,7 +1,7 @@
 {
-    "name": "ikoolik/activitylog",
+    "name": "codemyviews/activitylog",
     "description": "A very simple activity logger to monitor the users of your website or application",
-    "homepage": "https://github.com/spatie/activitylog",
+    "homepage": "https://github.com/codemyviews/activitylog",
     "keywords":
         [
             "log",
@@ -10,6 +10,10 @@
             "laravel"
         ],
     "authors": [
+        {
+            "name": "Ivan Kulikov",
+            "email": "ikoolik@gmail.com"
+        },
         {
             "name": "Freek Van der Herten",
             "email": "freek@spatie.be"
@@ -29,7 +33,7 @@
             "src/migrations"
         ],
         "psr-0": {
-            "Spatie\\Activitylog\\": "src/"
+            "CodeMyViews\\Activitylog\\": "src/"
         }
     },
     "license": "MIT"

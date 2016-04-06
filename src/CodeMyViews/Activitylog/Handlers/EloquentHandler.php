@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\Activitylog\Handlers;
+namespace CodeMyViews\Activitylog\Handlers;
 
-use Spatie\Activitylog\Models\Activity;
+use CodeMyViews\Activitylog\Models\Activity;
 use Carbon\Carbon;
 
 class EloquentHandler implements ActivitylogHandlerInterface

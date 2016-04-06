@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Activitylog;
+namespace CodeMyViews\Activitylog;
 
 interface LogsActivityInterface
 {
